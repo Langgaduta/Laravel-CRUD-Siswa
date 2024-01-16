@@ -34,8 +34,8 @@
                     <td>{{ $item->nis }}</td>
                     <td>{{ $item->jurusan }}</td>
                     <td class="d-flex justify-content-center">
-                        <a href="/Siswa/{{$item->id}}/edit" class="btn btn-primary me-3">Edit</a>
-                        <form action="/Siswa/{{$item->id}}" method="POST">
+                        <a href="/Siswa/{{ $item->id }}/edit" class="btn btn-primary me-3">Edit</a>
+                        <form action="/Siswa/{{ $item->id }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
@@ -46,4 +46,3 @@
         </tbody>
     </table>
 @endsection
-

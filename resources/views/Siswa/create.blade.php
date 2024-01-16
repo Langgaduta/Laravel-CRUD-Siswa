@@ -1,7 +1,18 @@
 @extends('layouts.template')
 
 @section('content')
-<h5 style="color:rgb(0, 64, 137)" class="mb-3">Tambah Siswa</h5>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <h5 style="color:rgb(0, 64, 137)" class="mb-3">Tambah Siswa</h5>
     <form action="/Siswa/store" method="POST" class="card  p-5">
         @csrf
         <div class="mb-3 row">
@@ -22,8 +33,8 @@
                 <input type="text" class="form-control" id="jurusan" name="jurusan">
             </div>
         </div>
-       
-       
+
+
         <button type="submit" class="btn btn-primary mt-3">Tambah Data</button>
     </form>
 @endsection

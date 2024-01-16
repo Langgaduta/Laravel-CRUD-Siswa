@@ -1,7 +1,18 @@
 @extends('layouts.template')
 @section('content')
-<h5 style="color:rgb(0, 64, 137)" class="mb-3">Edit Siswa</h5>
-    <form action="/Siswa/{{$siswa->id}}" method="POST" class="card p-5">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <h5 style="color:rgb(0, 64, 137)" class="mb-3">Edit Siswa</h5>
+    <form action="/Siswa/{{ $siswa->id }}" method="POST" class="card p-5">
         @csrf
         @method('PATCH')
 

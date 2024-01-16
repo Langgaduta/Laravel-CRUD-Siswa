@@ -12,6 +12,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
+
         $siswa = Siswa::all();
         return view('Siswa.index', compact(['siswa']));
     }
@@ -28,21 +29,27 @@ class SiswaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'nis' => 'required',
-            'jurusan' => 'required'
-        ]);
+{
+    $pesan = [
+        'unique' => 'NIS ini sudah dipakai siswa!'
+    ];
 
-        Siswa::create([
-            'name' => $request->name,
-            'nis' => $request->nis,
-            'jurusan' => $request->jurusan
-        ]);
+    $request->validate([
+        'name' => 'required',
+        'nis' => 'required|unique:siswas,nis',
+        'jurusan' => 'required'
+    ], $pesan);
 
-        return redirect('/Siswa')->with('success', 'Data berhasil ditambahkan!');
-    }
+    // Jika validasi berhasil, lanjutkan dengan penyimpanan data
+
+    Siswa::create([
+        'name' => $request->name,
+        'nis' => $request->nis,
+        'jurusan' => $request->jurusan
+    ]);
+
+    return redirect('/Siswa')->with('success', 'Data berhasil ditambahkan!');
+}
 
     /**
      * Display the specified resource.
@@ -64,20 +71,24 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request ,$id)
+    public function update(Request $request, $id)
     {
+        $pesan = [
+            'unique' => 'NIS ini sudah dipakai siswa!'
+        ];
+
         $request->validate([
             'name' => 'required',
-            'nis' => 'required',
+            'nis' => 'required|unique:siswas,nis,'.$id, 
             'jurusan' => 'required'
-        ]);
-
+        ],$pesan);
+    
         Siswa::where('id', $id)->update([
             'name' => $request->name,
             'nis' => $request->nis,
             'jurusan' => $request->jurusan,
         ]);
-
+    
         return redirect('/Siswa')->with('success', 'Data berhasil diperbarui!');
     }
 
